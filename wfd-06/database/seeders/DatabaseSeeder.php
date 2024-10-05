@@ -3,6 +3,11 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\DogOwners;
+use App\Models\Dogs;
+use App\Models\Owners;
+use App\Models\Walks;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,5 +23,13 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        //$this->call(DogsSeeder::class)
+        //$this->call(OwnersSeeder::class)
+
+        Dogs::factory(5)->create();
+        Owners::factory(3)->create();
+        DogOwners::factory(5)->create();
+        Walks::factory()->count(10)->create();
     }
 }
