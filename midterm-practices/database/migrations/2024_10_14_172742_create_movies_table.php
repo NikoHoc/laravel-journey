@@ -11,8 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
+        /*
+          Tabel movies:
+          1. id: Auto increment, primary key.
+          2. movie_title: String(100), required.
+          3. duration: Integer (dalam menit), required → contoh: 120.
+          4. release_date: Date, required.
+          5. created_at, updated_at.
+        */
+    
         Schema::create('movies', function (Blueprint $table) {
             $table->id();
+            $table->string('movie_title', 100);
+            $table->integer('duration');
+            $table->date('release_date');
             $table->timestamps();
         });
     }
