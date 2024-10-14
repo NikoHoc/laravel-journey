@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('customer_name', 100);
             $table->string('seat_number', 5);
             $table->boolean('is_checked_in')->default(0);
-            $table->dateTime('check_in-time')->nullable();
+            $table->dateTime('check_in_time')->nullable();
             $table->timestamps();
         });
     }
