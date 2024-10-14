@@ -24,4 +24,11 @@ class MovieController extends Controller
             'tickets' => $tickets,
         ]);
     }
+
+    public function showBookTicket ($id) {
+        $movie = Movie::find($id);
+        return view('movies.book.index', [
+            'movie' => $movie
+        ]);
+    }
 }

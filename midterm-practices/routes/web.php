@@ -22,6 +22,7 @@ Route::get('/', function(){
 
 Route::get('/movies', [MovieController::class, 'index']);
 Route::get('/movies/tickets/{movie:id}', [MovieController::class, 'showTickets']);
+Route::get('/movies/book/{movie:id}', [MovieController::class, 'showBookTicket']);
 
 Route::put('/ticket/checkin/{ticket:id}', [TicketController::class, 'checkIn']);
 Route::delete('/ticket/delete/{ticket:id}', [TicketController::class, 'deleteTicket']);

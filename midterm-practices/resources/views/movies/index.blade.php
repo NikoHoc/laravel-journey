@@ -9,6 +9,7 @@
         <p>Duration: {{ $movie->duration }}</p>
         <p>release data: {{ $movie->release_date }}</p>
         <p>Jumlah penonton: {{ $movie->tickets->count() }}</p>
+        <a href="{{ url('movies/book/' . $movie->id) }}" class="btn btn-primary">Book Ticket</a>
         <a href="{{ url('movies/tickets/' . $movie->id) }}" class="btn btn-primary">Lihat Tiket</a>
     </div>        
 @endforeach
