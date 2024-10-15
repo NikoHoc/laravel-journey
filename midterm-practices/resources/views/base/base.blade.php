@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @vite('resources/css/app.css')  
+    @yield('library-css')
     <title>Document</title>
 </head>
 <body>
@@ -15,6 +16,9 @@
         @yield('content')
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     @vite(['resources/js/app.js'])
+    @yield('library-js')
 </body>
 </html>
