@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\WalksController;
+use App\Http\Resources\DogResource;
+use App\Models\Dogs;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,3 +21,9 @@ Route::get('/', function () {
 });
 
 Route::resource('walks', WalksController::class);
+
+Route::get('dogs/owner/{idOwner}', function(string $idOwner) {
+    return DogResource::collection(Dogs::query()
+    ->leftJoin('dog_owner', 'dogs.id', '=', 'dog_owner.dog_id')
+    ->where('dog_owner.owner_id', $idOwner)->get())->response();
+});

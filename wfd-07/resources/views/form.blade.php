@@ -33,14 +33,13 @@
                     <label for="owners" class="form-label">Owner Name</label>
                     <select class="selectOwner form-control" id="owners"name="owner">
                         @foreach($listOwners as $owner)
-                        <option value="{{ $owner->id }}">{{ $owner->name }}</option>
-                          
+                            <option value="{{ $owner->id }}">{{ $owner->name }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="mb-3">
                     <label for="dogs" class="form-label">Dogs Name</label>
-                    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input placeholder">
+                    
                 </div>
             </form>
         </div>
@@ -52,8 +51,26 @@
 
 @section('library-js')
 <script>
+    function loadDogData () {
+        
+    }
     $(document).ready(function() {
-        $('.selectOwner').select2();
+        $('.selectOwner').select2({
+            placeholder: "Select a state",
+            allowClear: true
+        });
+
+        var url = '{{ url('') }}/dogs/owners/'
+        $.ajax({
+            url: url,
+            success: function(result){
+                console.log(result)
+                var dogNameHtml = ""
+                if(result.data.length > 0) {
+                    for(var i = 0; i < result.data.length)
+                }
+            }
+        })
     });
 </script>
 @endsection
