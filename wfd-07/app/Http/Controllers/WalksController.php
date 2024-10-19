@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Owners;
 use App\Models\Walks;
 use Illuminate\Http\Request;
 
@@ -23,7 +24,10 @@ class WalksController extends Controller
      */
     public function create()
     {
-        //
+        $listOwners = Owners::query()->where('active', 1)->get();
+        return view('form', [
+            "listOwners" => $listOwners
+        ]);
     }
 
     /**
@@ -39,7 +43,10 @@ class WalksController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $walk = Walks::find($id);
+        return view('show', [
+            "walkData" => $walk
+        ]);
     }
 
     /**
