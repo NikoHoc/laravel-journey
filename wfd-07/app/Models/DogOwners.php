@@ -11,6 +11,10 @@ class DogOwners extends Pivot
 {
     use HasFactory;
 
+    // $incrementing needs to be set 'true' to allow getting id after create
+    public $incrementing = true;
+
+
     protected $table = 'dog_owner';
 
     public function walks(): HasMany {

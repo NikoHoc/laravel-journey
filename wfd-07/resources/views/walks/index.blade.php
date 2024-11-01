@@ -7,18 +7,26 @@
 @section('content')
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3 btn-group">
             <h1>List Walks</h1>
-        </div>
-        <div class="col-md-1">
-            <a href="{{ route('walks.create') }}">
-                <button type="button" class="btn btn-danger">Create</button>
+            <a href="{{ route('walks.create') }}" class="btn mt-2">
+                <button type="button" class="btn btn-sm btn-danger">
+                    + Create
+                </button>
             </a>
         </div>
     </div>
-
+    @if (Session::has('message') && Session::get('alert-class') == 'success')
+        <div class="alert alert-success" role="alert">
+            {{ Session::get('message') }}
+        </div>
+    @elseif(Session::has('message') && Session::get('alert-class') == 'danger')
+        <div class="alert alert-danger" role="alert">
+            {{ Session::get('message') }}
+        </div>
+    @endif
     <!--{{ $walks }} -->
-    <table id="walkData">
+    <table id="walkData" class="display">
         <thead>
             <tr>
                 <th>ID</th>
@@ -43,24 +51,24 @@
                     -
                     @endif
                 <td>
-                    <div class=" me-2">
-                        <a href="{{ route('walks.show', [ "walk" => $data->id ] ) }}"> 
-                            <button type="button" class="btn btn-xs btn-primary">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m1 15h-2v-6h2zm0-8h-2V7h2z"/></svg>
+                    <div class="btn-group btn-group-sm" role="group" aria-label="Action">
+                        <a href="{{ route('walks.show', [ "walk" => $data->id ]) }}">
+                            <button type="button" class="btn btn-sm btn-primary ml-1">
+                                <i class="fa-solid fa-circle-info"></i>
                             </button>
                         </a>
-                        <a href="{{ route('walks.edit', ["walk" => $data->id ]) }}">
-                            <button type="button" class="btn btn-warning">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="currentColor" d="M3 21v-4.25L16.2 3.575q.3-.275.663-.425t.762-.15t.775.15t.65.45L20.425 5q.3.275.438.65T21 6.4q0 .4-.137.763t-.438.662L7.25 21zM17.6 7.8L19 6.4L17.6 5l-1.4 1.4z"/></svg>
+                        <a href="{{ route('walks.edit', [ "walk" => $data->id ]) }}">
+                            <button type="button" class="btn btn-sm btn-warning mx-1">
+                                <i class="fa-solid fa-pencil"></i>
                             </button>
                         </a>
-                        <a href="{{ route('walks.destroy', [ "walk" => $data->id ] ) }}">
-                            <button type="button" class="btn btn-danger">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="currentColor" d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zm2-4h2V8H9zm4 0h2V8h-2z"/></svg>
+                        <form action="{{ route('walks.destroy', [ "walk" => $data->id ]) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger ml-1">
+                                <i class="fa-solid fa-trash-can"></i>
                             </button>
-                        </a>
-
-                        
+                        </form>
                     </div>
                 </td>
                 
