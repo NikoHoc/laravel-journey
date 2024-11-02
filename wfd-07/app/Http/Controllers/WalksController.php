@@ -16,8 +16,9 @@ class WalksController extends Controller
      */
     public function index()
     {
+        print_r(session()->all());
         $walksData = Walks::query()->get();
-        return view('walks/index', [
+        return view("walks/index", [
             "walks" => $walksData
         ]);
     }
@@ -28,7 +29,7 @@ class WalksController extends Controller
     public function create()
     {
         $listOwners = Owners::query()->where('active', 1)->get();
-        return view('form', [
+        return view('walks/form', [
             "listOwners" => $listOwners
         ]);
     }

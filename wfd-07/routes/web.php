@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\DogsController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\OwnersController;
 use App\Http\Controllers\WalksController;
 use App\Http\Resources\DogResource;
 use App\Models\DogOwners;
@@ -17,18 +20,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [LoginController::class, 'login'])->name('login');
+Route::post('/authenticate', [LoginController::class, 'authenticate'])->name('authenticate');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::resource('walks', WalksController::class);
+Route::resource('walks', WalksController::class)->middleware('role:admin');
+Route::resource('dogs', DogsController::class)->middleware('role:admin');
+Route::resource('owners', OwnersController::class)->middleware('role:admin');
 
-Route::get('dogs/owner/{idOwner}', function(string $idOwner) {
-    return DogResource::collection(Dogs::query()
-    ->leftJoin('dog_owner', 'dogs.id', '=', 'dog_owner.dog_id')
-    ->where('dog_owner.owner_id', $idOwner)->get())->response();
-});
+// Route::get('dogs/owner/{idOwner}', function(string $idOwner) {
+//     return DogResource::collection(Dogs::query()
+//     ->leftJoin('dog_owner', 'dogs.id', '=', 'dog_owner.dog_id')
+//     ->where('dog_owner.owner_id', $idOwner)->get())->response();
+// });
 
+/**
+ * List Dogs API without Authentication
+ * http://localhost:8000/dogs/owner/1
+ */
 Route::get('/dogs/owner/{idowner}', function (string $idowner) {
     // Query from code below :
     // select distinct dog_id from `dog_owner` where `owner_id` = $idowner group by `dog_id`;

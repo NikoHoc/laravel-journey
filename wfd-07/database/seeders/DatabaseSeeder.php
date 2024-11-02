@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
         // DogOwners::factory(5)->create();
         // Walks::factory()->count(10)->create();
 
+        $this->call(RoleAndUsersSeeder::class);
         $this->call(DogsSeeder::class);
         $this->call(OwnersSeeder::class);
         $this->call(DogOwnersSeeder::class);
