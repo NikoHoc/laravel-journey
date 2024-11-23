@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ShopingController;
+use App\Http\Resources\ShoppingCartResource;
+use App\Models\ShoppingCart;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,5 +19,24 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/product/details/{id}', [ShopingController::class, 'show'])->name('productpage');
 
-Route::get('/product/details/{id}', [ShopingController::class, 'show'])->name('product_page');
+/**
+ * Get Shopping Cart Items API
+ */
+Route::get('/shoppingcart/{sessionid}', function(string $sessionid) {
+    $listItems = ShoppingCart::with('clothes')
+                            ->where('session_id', $sessionid)
+                            ->get();
+    return ShoppingCartResource::collection($listItems);
+});
+
+/**
+ * POST - API untuk add to Cart
+ */
+Route::post('/addtocart',[ShopingController::class, 'addToCart'])->name('addtocart');
+
+/**
+ * POST - API untuk delete from cart
+ */
+Route::post('/deletefromshoppingcart',[ShopingController::class, 'deleteFromShoppingCart'])->name('deletefromshoppingcart');
